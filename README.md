@@ -1,0 +1,1 @@
+# rozetka-ui-testing-project
