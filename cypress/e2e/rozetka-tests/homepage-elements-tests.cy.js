@@ -43,9 +43,9 @@ describe('Verifying elements on the homepage of base URL', () => {
         cy.visit('https://rozetka.pl') 
         cy.get('.action-buttons .button').eq(0).click()
         cy.get('input').type('phone{Enter}')
-        cy.get('body')
-        cy.get('h1')
-        
-
+        cy.url().should('include', 'phone')
+        cy.get('h1')                         //selector can't be finded for some reason
+        // cy.visit('https://rozetka.pl/search/?text=phone')
+        // cy.get('h1').should('have.text', '«phone»')
     })
 })
