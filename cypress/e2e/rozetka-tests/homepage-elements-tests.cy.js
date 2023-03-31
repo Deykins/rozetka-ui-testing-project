@@ -49,7 +49,7 @@ describe('Verifying elements on the homepage of base URL', () => {
         // cy.get('h1').should('have.text', '«phone»')
     })
 
-    it('TC000006 Verify, that user can search products', () => {
+    it('TC000007 Verify, that user can search products', () => {
         cy.visit('https://rozetka.pl') 
         cy.get('.action-buttons .button').eq(0).click()
         cy.get('a[class="ng-tns-c109-3"][href*="/about/"]').click()
