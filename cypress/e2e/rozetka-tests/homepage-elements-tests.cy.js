@@ -56,7 +56,7 @@ describe('Verifying elements on the homepage of base URL', () => {
         cy.url().should('include', '/about/')
     })
 
-    it.only('TC000008 Verify, that correct error message displayed on login form', () => {
+    it('TC000008 Verify, that correct error message displayed on login form', () => {
         cy.visit('https://rozetka.pl') 
         cy.get('.action-buttons .button').eq(0).click()
         cy.get('.header-actions__item--user').click()
