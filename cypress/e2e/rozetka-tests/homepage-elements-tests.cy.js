@@ -49,10 +49,18 @@ describe('Verifying elements on the homepage of base URL', () => {
         // cy.get('h1').should('have.text', '«phone»')
     })
 
-    it.only('TC000007 Verify, that user can search products', () => {
+    it('TC000007 Verify "O nas" link is redirect to correct page', () => {
         cy.visit('https://rozetka.pl') 
         cy.get('.action-buttons .button').eq(0).click()
         cy.get('a[class="ng-tns-c109-3"][href*="/about/"]').click()
         cy.url().should('include', '/about/')
+    })
+
+    it.only('TC000008 Verify, that correct error message displayed on login form', () => {
+        cy.visit('https://rozetka.pl') 
+        cy.get('.action-buttons .button').eq(0).click()
+        cy.get('.header-actions__item--user').click()
+        cy.get('.auth-modal__submit').click()
+        cy.get('.error-message').should('have.text', ' Wprowadzono nieprawidłowy adres e-mail lub numer telefonu ')
     })
 })
