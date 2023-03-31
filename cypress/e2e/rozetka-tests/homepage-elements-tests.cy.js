@@ -28,7 +28,7 @@ describe('Verifying elements on the homepage of base URL', () => {
         cy.get('h1[class="catalog-heading ng-star-inserted"]').should('have.text', 'Komputery i laptopy')
     })
 
-    it('TC000005 Verify, that user allowed to add item to basket from homepage', () => {
+    it('TC000005 Verify, that user allowed to add item to basket', () => {
         cy.visit('https://rozetka.pl') 
         cy.get('.action-buttons .button').eq(0).click()
         cy.wait(1000)
@@ -49,7 +49,7 @@ describe('Verifying elements on the homepage of base URL', () => {
         // cy.get('h1').should('have.text', '«phone»')
     })
 
-    it.only('TC000006 Verify, that user can search products', () => {
+    it.only('TC000007 Verify, that user can search products', () => {
         cy.visit('https://rozetka.pl') 
         cy.get('.action-buttons .button').eq(0).click()
         cy.get('a[class="ng-tns-c109-3"][href*="/about/"]').click()
