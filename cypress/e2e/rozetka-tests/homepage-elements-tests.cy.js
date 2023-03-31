@@ -39,7 +39,7 @@ describe('Verifying elements on the homepage of base URL', () => {
         cy.get('.header-actions__item--cart').should('have.text', ' 1 ')
     })    
 
-    it.only('TC000006 Verify, that user can search products', () => {
+    it('TC000006 Verify, that user can search products', () => {
         cy.visit('https://rozetka.pl') 
         cy.get('.action-buttons .button').eq(0).click()
         cy.get('input').type('phone{Enter}')
@@ -47,5 +47,12 @@ describe('Verifying elements on the homepage of base URL', () => {
         cy.get('h1')                         //selector can't be finded for some reason
         // cy.visit('https://rozetka.pl/search/?text=phone')
         // cy.get('h1').should('have.text', '«phone»')
+    })
+
+    it.only('TC000006 Verify, that user can search products', () => {
+        cy.visit('https://rozetka.pl') 
+        cy.get('.action-buttons .button').eq(0).click()
+        cy.get('a[class="ng-tns-c109-3"][href*="/about/"]').click()
+        cy.url().should('include', '/about/')
     })
 })
