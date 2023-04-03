@@ -76,7 +76,7 @@ describe('Verifying elements on the homepage of base URL', () => {
         })
     })
 
-    it.only('TC000008 Verify, that correct error message displayed on login form', () => {
+    it('TC000008 Verify, that correct error message displayed on login form', () => {
         homepage.logIn()
         cy.get('@data').then((data) => {
             logInWindow.getEmailField().type(data.email)
@@ -90,10 +90,5 @@ describe('Verifying elements on the homepage of base URL', () => {
         //     cy.wrap(body).as('iframe')
         // })
         // cy.get('@iframe').find('#rc-anchor-container')
-            
-        
-        
-        
-
     })
 })
