@@ -94,8 +94,9 @@ describe("Verifying elements on the homepage of base URL", () => {
   it("TC000010 Verify, that categories displayed in correct order", () => {
     cy.get('@data').then(data => {
         homepage.getCategoryList().each(($el, index, $list) => {
-            expect($el.text()).is.equal(data.categoryList[index])
+            expect($el.text()).is.equal(data.categoryList[index])  //Check the list
         })
+
     })
   });
 });
