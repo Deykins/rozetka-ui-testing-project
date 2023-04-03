@@ -91,12 +91,11 @@ describe("Verifying elements on the homepage of base URL", () => {
     // cy.get('@iframe').find('#rc-anchor-container')
   });
 
-  it.only("TC000005 Verify, that user allowed to add item to basket", () => {
+  it("TC000010 Verify, that categories displayed in correct order", () => {
     cy.get('@data').then(data => {
         homepage.getCategoryList().each(($el, index, $list) => {
             expect($el.text()).is.equal(data.categoryList[index])
         })
-
     })
   });
 });
