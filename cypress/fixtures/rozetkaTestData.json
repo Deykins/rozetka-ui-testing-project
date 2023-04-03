@@ -2,5 +2,19 @@
     "email": "simije7140@fectode.com",
     "password": "WtxqMCArQ2S6F6T",
     "errorMessage": " Wprowadzono nieprawidłowy adres e-mail lub numer telefonu ",
-    "searchText": "phone"
+    "searchText": "phone",
+    "categoryList": [
+        "Komputery i laptopy",
+        "Smartfony, telewizory i elektronika",
+        "AGD",
+        "Obuwie",
+        "Odzież",
+        "Artykuły dla zwierząt",
+        "Artykuły dla dzieci",
+        "Artykuły gospodarstwa domowego",
+        "Narzędzia i produkty samochodowe",
+        "Sport i hobby",
+        "Kosmetyki i perfumy",
+        "Produkty dla biznesu"
+    ]
 }
