@@ -1,9 +1,9 @@
-import HomePage_PO from "../../support/pageObjects/rozetka-pl/Homepage_PO";
-import Basket_PO from "../../support/pageObjects/rozetka-pl/Basket_PO";
-import ItemPage_PO from "../../support/pageObjects/rozetka-pl/ItemPage_PO";
-import CategoryPage_PO from "../../support/pageObjects/rozetka-pl/CategoryPage_PO";
-import LogInWindow_PO from "../../support/pageObjects/rozetka-pl/LogInWindow_PO";
 /// <reference types="Cypress" />
+import Basket_PO from "../../support/pageObjects/rozetka-pl/Basket_PO"
+import ItemPage_PO from "../../support/pageObjects/rozetka-pl/ItemPage_PO"
+import CategoryPage_PO from "../../support/pageObjects/rozetka-pl/CategoryPage_PO"
+import LogInWindow_PO from "../../support/pageObjects/rozetka-pl/LogInWindow_PO"
+
 
 describe("Verifying elements on the homepage of base URL", () => {
   const homepage = new HomePage_PO();
@@ -14,8 +14,9 @@ describe("Verifying elements on the homepage of base URL", () => {
 
   beforeEach(() => {
     homepage.visitHomepage({ timeout: 10000 });
-    homepage.acceptCookies();
+    homepage.acceptCookies()
     cy.fixture("rozetkaTestData").as("data");
+    
   });
 
   it("TC000001 Verify, that homepage is displayed", () => {
@@ -81,7 +82,7 @@ describe("Verifying elements on the homepage of base URL", () => {
       logInWindow.getEmailField().type(data.email);
       logInWindow.getPasswordField().type(data.password);
     });
-    logInWindow.getRememberMeCheckbox().uncheck({ force: true });
+    logInWindow.getRememberMeCheckbox().ch
     logInWindow.getSubmitButton().click();
     cy.get("#ngrecaptcha-0 *> iframe").should("be.visible");
     // cy.get('#ngrecaptcha-0 *> iframe').then($iframe => {

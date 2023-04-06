@@ -6,11 +6,13 @@ module.exports = defineConfig({
       // implement node event listeners here
       
     },
-  chromeWebSecurity: false,
-  viewportHeight: 1080,
-  viewportWidth: 1920,
-  env: {
-    rozetka_homepage: "https://rozetka.pl/"
+    specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx,feature}",
+    excludeSpecPattern: "cypress/e2e/other/*.js",
+    chromeWebSecurity: false,
+    viewportHeight: 1080,
+    viewportWidth: 1920,
+    env: {
+      ozetka_homepage: "https://rozetka.pl/"
   }
 
   },
