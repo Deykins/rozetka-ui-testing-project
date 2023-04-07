@@ -39,7 +39,7 @@ describe('Verifying elements on the homepage of base URL', () => {
         cy.get('.header-actions__item--cart').should('have.text', ' 1 ')
     })    
 
-    it.only('TC000006 Verify, that user can search products', () => {
+    it.only('TC000006 Verify, that user can search products ', () => {
         cy.visit('https://rozetka.pl') 
         cy.get('.action-buttons .button').eq(0).click()
         cy.get('input').type('phone{Enter}')
