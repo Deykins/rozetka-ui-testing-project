@@ -92,12 +92,40 @@ describe("Verifying elements on the homepage of base URL", () => {
     // cy.get('@iframe').find('#rc-anchor-container')
   });
 
-  it("TC000010 Verify, that categories displayed in correct order", () => {
-    cy.get('@data').then(data => {
-        homepage.getCategoryList().each(($el, index, $list) => {
-            expect($el.text()).is.equal(data.categoryList[index])  //Check the list
-        })
-
+    it('TC000007 Verify "O nas" link is redirect to correct page', () => {
+        homepage.getAboutUsLink().click()
+        cy.url().should('include', '/about/')
     })
-  });
-});
+
+    it('TC000008 Verify, that correct error message displayed on login form', () => {
+        homepage.logIn()
+        logInWindow.getSubmitButton().click()
+        cy.get('@data').then((data) => {
+            logInWindow.getErrortMessage().should('have.text', data.errorMessage)
+        })
+    })
+
+    it('TC000009 Verify, that registered user can login with valid credentials', () => {
+        homepage.logIn()
+        cy.get('@data').then((data) => {
+            logInWindow.getEmailField().type(data.email)
+            logInWindow.getPasswordField().type(data.password)
+        })
+        logInWindow.getRememberMeCheckbox().uncheck({force:true})
+        logInWindow.getSubmitButton().click()
+        cy.get('#ngrecaptcha-0 *> iframe').should('be.visible')
+        // cy.get('#ngrecaptcha-0 *> iframe').then($iframe => {
+        //     const body = $iframe.contents().find('body')
+        //     cy.wrap(body).as('iframe')
+        // })
+        // cy.get('@iframe').find('#rc-anchor-container')
+    })
+
+    it("TC000010 Verify, that categories displayed in correct order", () => {
+        cy.get('@data').then(data => {
+            homepage.getCategoryList().each(($el, index, $list) => {
+                expect($el.text()).is.equal(data.categoryList[index])  //Check the list
+            })
+        })
+    })
+})
