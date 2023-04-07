@@ -3,7 +3,7 @@ import Basket_PO from "../../support/pageObjects/rozetka-pl/Basket_PO"
 import ItemPage_PO from "../../support/pageObjects/rozetka-pl/ItemPage_PO"
 import CategoryPage_PO from "../../support/pageObjects/rozetka-pl/CategoryPage_PO"
 import LogInWindow_PO from "../../support/pageObjects/rozetka-pl/LogInWindow_PO"
-/// <reference types="cypress" />
+/// <reference types="Cypress" />
 
 describe('Verifying elements on the homepage of base URL', () => {
 
@@ -70,9 +70,25 @@ describe('Verifying elements on the homepage of base URL', () => {
 
     it('TC000008 Verify, that correct error message displayed on login form', () => {
         homepage.logIn()
-        logInWindow.clickOnSubmitButton()
+        logInWindow.getSubmitButton().click()
         cy.get('@data').then((data) => {
             logInWindow.getErrortMessage().should('have.text', data.errorMessage)
         })
+    })
+
+    it('TC000009 Verify, that registered user can login with valid credentials', () => {
+        homepage.logIn()
+        cy.get('@data').then((data) => {
+            logInWindow.getEmailField().type(data.email)
+            logInWindow.getPasswordField().type(data.password)
+        })
+        logInWindow.getRememberMeCheckbox().uncheck({force:true})
+        logInWindow.getSubmitButton().click()
+        cy.get('#ngrecaptcha-0 *> iframe').should('be.visible')
+        // cy.get('#ngrecaptcha-0 *> iframe').then($iframe => {
+        //     const body = $iframe.contents().find('body')
+        //     cy.wrap(body).as('iframe')
+        // })
+        // cy.get('@iframe').find('#rc-anchor-container')
     })
 })
