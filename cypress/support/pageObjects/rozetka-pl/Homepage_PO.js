@@ -13,7 +13,7 @@ class HomePage_PO {
     }
 
     getCategoryList() {
-        return cy.get('.menu-categories__link')
+        return cy.get('.js-menu-categories__link')
     }
 
     getLogo() {
