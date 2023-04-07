@@ -76,7 +76,7 @@ describe('Verifying elements on the homepage of base URL', () => {
         })
     })
 
-    it('TC000008 Verify, that correct error message displayed on login form', () => {
+    it('TC000009 Verify, that registered user can login with valid credentials', () => {
         homepage.logIn()
         cy.get('@data').then((data) => {
             logInWindow.getEmailField().type(data.email)
