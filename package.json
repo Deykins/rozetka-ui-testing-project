@@ -1,5 +1,11 @@
 {
   "dependencies": {
-    "cypress": "^12.9.0"
+    "cypress": "^12.9.0",
+    "@cypress/xpath": "^2.0.3",
+    "cypress-xpath": "^2.0.1"
+  },
+  "devDependencies": {
+    "@cypress/xpath": "^2.0.3",
+    "cypress-xpath": "^2.0.1"
   }
 }

@@ -38,6 +38,10 @@ class HomePage_PO {
   getSearchTextField() {
     return cy.get("input");
   }
+
+  getUaLangSwitcher() {
+    return cy.xpath("//a[contains(@href,'/ua/')]");
+  }
 }
 
 export default HomePage_PO;
