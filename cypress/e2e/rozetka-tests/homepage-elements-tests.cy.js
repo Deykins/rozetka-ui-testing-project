@@ -101,7 +101,7 @@ describe("Verifying elements on the homepage of base URL", () => {
     });
   });
 
-  it("TC000010 Verify, that categories displayed in correct order", () => {
+  it("TC000011 Verify, that color changing of hovered element Interface language switcher", () => {
     // homepage.getUaLangSwitcher();
     homepage
       .getUaLangSwitcher()
@@ -109,7 +109,23 @@ describe("Verifying elements on the homepage of base URL", () => {
       .invoke("show")
       .trigger("mouseover", "bottom")
       .then(($ua) => {
-        expect($ua).to.have.css("color", "rgb(248, 65, 71)");
+        expect($ua).to.have.css("color", "rgb(248, 65, 71)"); //This test should pass, because hover over element not working corectly
       });
+  });
+
+  it("TC000012 Verify filter on a category page ", () => {
+    const producer = "ASUS";
+    homepage.getCategory(0).click({ force: true });
+    categoryPage.getProducerSearchLine().type(producer);
+    cy.get(".checkbox-filter>li").contains(producer).click();
+    categoryPage
+      .getItemByIndex(0)
+      .should("contain", producer, { timeout: 10000 }); //Waiting for catalog grid of specific producer name
+    categoryPage.getCatalogGrid().each(($item) => {
+      const producer_text = $item.text().toLowerCase();
+      expect(producer_text).to.contain(producer.toLowerCase());
+    });
+    cy.log("All items on this page contains " + producer + ".");
+    cy.log("TEST PASS");
   });
 });
