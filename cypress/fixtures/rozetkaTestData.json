@@ -3,7 +3,8 @@
     "password": "WtxqMCArQ2S6F6T",
     "errorMessage": " Wprowadzono nieprawidłowy adres e-mail lub numer telefonu ",
     "searchText": "phone",
-    "categoryList": [
+    "categoryList": {
+        " PL ": [
         "Komputery i laptopy",
         "Smartfony, telewizory i elektronika",
         "AGD",
@@ -16,5 +17,21 @@
         "Sport i hobby",
         "Kosmetyki i perfumy",
         "Produkty dla biznesu"
-    ]
+        ],
+
+        " UA ": [
+        "Комп'ютери та ноутбуки",
+        "Смартфони, ТВ і електроніка",
+        "Побутова техніка",
+        "Взуття",
+        "Одяг",
+        "Зоотовари",
+        "Товари для дітей",
+        "Товари для дому",
+        "Інструменти та автотовари",
+        "Спорт і захоплення",
+        "Косметика та парфумерія",
+        "Товари для бізнесу"
+         ]
+    }
 }
