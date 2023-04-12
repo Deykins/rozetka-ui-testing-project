@@ -6,7 +6,11 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
     specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx,feature}",
-    excludeSpecPattern: "cypress/e2e/other/*.js",
+    excludeSpecPattern: [
+      "./node_modules/cypress-xpath",
+      "./node_modules/cypress",
+      "cypress/e2e/other/*.js",
+    ],
     chromeWebSecurity: false,
     viewportHeight: 1080,
     viewportWidth: 1920,

@@ -5,6 +5,7 @@ import CategoryPage_PO from "../../support/pageObjects/rozetka-pl/CategoryPage_P
 import LogInWindow_PO from "../../support/pageObjects/rozetka-pl/LogInWindow_PO";
 
 /// <reference types="Cypress" />
+/// <reference types="Cypress-xpath" />
 
 describe("Verifying elements on the homepage of base URL", () => {
   const homepage = new Homepage_PO();
@@ -98,5 +99,17 @@ describe("Verifying elements on the homepage of base URL", () => {
         expect($el.text()).is.equal(data.categoryList[index]); //Check the list
       });
     });
+  });
+
+  it("TC000010 Verify, that categories displayed in correct order", () => {
+    // homepage.getUaLangSwitcher();
+    homepage
+      .getUaLangSwitcher()
+      .should("have.css", "color", "rgb(255, 255, 255)")
+      .invoke("show")
+      .trigger("mouseover", "bottom")
+      .then(($ua) => {
+        expect($ua).to.have.css("color", "rgb(248, 65, 71)");
+      });
   });
 });
