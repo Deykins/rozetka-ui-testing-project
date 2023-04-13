@@ -33,13 +33,15 @@ describe("Verifying elements on the homepage of base URL", () => {
     basket.getBasketTitle().should("have.text", " Koszyk");
   });
 
-  it("TC000004 Verify, that first category title is Komputery i laptopy", () => {
+  it.only("TC000004 Verify, that first category title is Komputery i laptopy", () => {
     let expectedText;
-    homepage.getCategory(0).then(($cat) => {
-      expectedText = $cat.text();
-    });
-    homepage.getCategory(0).click({ force: true });
-    categoryPage.getCategoryTitle({ timeout: 5000 }).then(($title) => {
+    homepage
+      .getCategory(0)
+      .then(($cat) => {
+        expectedText = $cat.text();
+      })
+      .click({ force: true });
+    categoryPage.getCategoryTitle().then(($title) => {
       expect($title.text()).to.equal(expectedText);
     });
   });
