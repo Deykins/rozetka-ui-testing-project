@@ -33,7 +33,7 @@ describe("Verifying elements on the homepage of base URL", () => {
     basket.getBasketTitle().should("have.text", " Koszyk");
   });
 
-  it.only("TC000004 Verify, that first category title is Komputery i laptopy", () => {
+  it("TC000004 Verify, that first category title is Komputery i laptopy", () => {
     let expectedText;
     homepage
       .getCategory(0)
