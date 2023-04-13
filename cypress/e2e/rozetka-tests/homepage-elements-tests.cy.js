@@ -116,6 +116,7 @@ describe("Verifying elements on the homepage of base URL", () => {
   });
 
   it("TC000011 Verify, that color changing of hovered element Interface language switcher", () => {
+    // homepage.getUaLangSwitcher();
     homepage
       .getUaLangSwitcher()
       .should("have.css", "color", "rgb(255, 255, 255)")
