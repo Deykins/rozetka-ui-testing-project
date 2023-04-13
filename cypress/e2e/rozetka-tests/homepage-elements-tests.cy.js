@@ -14,6 +14,16 @@ describe("Verifying elements on the homepage of base URL", () => {
   const categoryPage = new CategoryPage_PO();
   const logInWindow = new LogInWindow_PO();
 
+  function checkLang() {
+    cy.get("@data").then((data) => {
+      homepage.getActualLanguage().then(($lang) => {
+        const lang = $lang.text();
+        cy.log("Actual language is " + lang);
+        homepage.getCategory(0).should("have.text", data.categoryList[lang][0]);
+      });
+    });
+  }
+
   beforeEach(() => {
     homepage.visitHomepage({ timeout: 10000 });
     homepage.acceptCookies();
@@ -51,15 +61,15 @@ describe("Verifying elements on the homepage of base URL", () => {
     // basket.getBasketTitle()
     // cy.get('.cart-product__title', {timeout:10000})
     // cy.get('.modal__close', {timeout:6000}).click()
-    // cy.get('.badge', {timeout:6000}).should('have.text', ' 1 ')
+    // cy.get('.badge', {timeout:6000}).should('have.text', ' 1 ')        //Cypress cannot find an element for some reason
   });
 
   it("TC000006 Verify, that user can search products", () => {
     cy.get("@data").then((data) => {
-      homepage.getSearchTextField().type(data.searchText + "{Enter}"); //phone
+      homepage.getSearchTextField().type(data.searchText + "{Enter}"); // string is "phone"
       cy.url().should("include", data.searchText, { timeout: 10000 });
     });
-    // cy.get('h1', {timeout:10000})                                     //selector can't be finded for some reason
+    // cy.get('h1', {timeout:10000})                                      //selector can't be finded for some reason
     // cy.visit('https://rozetka.pl/search/?text=phone')
     // cy.get('h1').should('have.text', '«phone»')
   });
@@ -90,13 +100,17 @@ describe("Verifying elements on the homepage of base URL", () => {
     //     const body = $iframe.contents().find('body')
     //     cy.wrap(body).as('iframe')
     // })
-    // cy.get('@iframe').find('#rc-anchor-container')
+    // cy.get('@iframe').find('#rc-anchor-container')                    //reCaptcha cannot be wrapped by Cypress
   });
 
   it("TC000010 Verify, that categories displayed in correct order", () => {
     cy.get("@data").then((data) => {
+      let lang;
+      homepage.getActualLanguage().then(($lang) => {
+        lang = $lang.text();
+      });
       homepage.getCategoryList().each(($el, index, $list) => {
-        expect($el.text()).is.equal(data.categoryList[index]); //Check the list
+        expect($el.text()).is.equal(data.categoryList[lang][index]); //Check the list
       });
     });
   });
@@ -106,8 +120,7 @@ describe("Verifying elements on the homepage of base URL", () => {
     homepage
       .getUaLangSwitcher()
       .should("have.css", "color", "rgb(255, 255, 255)")
-      .invoke("show")
-      .trigger("mouseover", "bottom")
+      .trigger("mouseover", "bottom", { force: true })
       .then(($ua) => {
         expect($ua).to.have.css("color", "rgb(248, 65, 71)"); //This test should pass, because hover over element not working corectly
       });
@@ -127,5 +140,13 @@ describe("Verifying elements on the homepage of base URL", () => {
     });
     cy.log("All items on this page contains " + producer + ".");
     cy.log("TEST PASS");
+  });
+
+  it("TC000013 Verify language switching", () => {
+    checkLang();
+    homepage.switchInterfaceLanguage();
+    checkLang();
+    homepage.switchInterfaceLanguage();
+    checkLang();
   });
 });

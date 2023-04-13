@@ -42,6 +42,21 @@ class HomePage_PO {
   getUaLangSwitcher() {
     return cy.xpath("//a[contains(@href,'/ua/')]");
   }
+
+  getActualLanguage() {
+    return cy.xpath(
+      "//*[contains(@class, 'lang__item')]/*[contains(@class, '--active')]"
+    );
+  }
+
+  switchInterfaceLanguage() {
+    let lang;
+    cy.xpath("//*[contains(@class, 'lang__item')]/a")
+      .click()
+      .then(($lang) => {
+        cy.log("Language switched to" + $lang.text());
+      });
+  }
 }
 
 export default HomePage_PO;
