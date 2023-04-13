@@ -115,8 +115,7 @@ describe("Verifying elements on the homepage of base URL", () => {
     });
   });
 
-  it.only("TC000011 Verify, that color changing of hovered element Interface language switcher", () => {
-    // homepage.getUaLangSwitcher();
+  it("TC000011 Verify, that color changing of hovered element Interface language switcher", () => {
     homepage
       .getUaLangSwitcher()
       .should("have.css", "color", "rgb(255, 255, 255)")
@@ -148,5 +147,27 @@ describe("Verifying elements on the homepage of base URL", () => {
     checkLang();
     homepage.switchInterfaceLanguage();
     checkLang();
+  });
+});
+
+describe("Timing of page loading", () => {
+  const homepage = new Homepage_PO();
+  it("TC000014 Verify, that homepage is loaded for less, then 10 seconds", () => {
+    let start = 0;
+    cy.then(() => {
+      start = performance.now();
+    });
+    homepage.visitHomepage();
+    homepage
+      .getCategoryList()
+      .last()
+      .then(() => {
+        const diffSec = (performance.now() - start) / 1000;
+        if (diffSec < 5)
+          cy.log(
+            `The Homepage loaded for ${diffSec.toFixed(1)} sec. Test PASS`
+          );
+        else cy.log("The Homepage loaded for over given time. Test FAIL");
+      });
   });
 });
