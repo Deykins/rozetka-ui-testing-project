@@ -120,14 +120,13 @@ describe("Verifying elements on the homepage of base URL", () => {
     homepage
       .getUaLangSwitcher()
       .should("have.css", "color", "rgb(255, 255, 255)")
-      .trigger("mouseover", "bottom", { force: true })
-      .then(($ua) => {
-        cy,
-          log(
-            "Here test should check chnging of color, but cypress cannot hover correctly"
-          );
-        //expect($ua).to.have.css("color", "rgb(248, 65, 71)"); //This test should pass, because hover over element not working corectly
-      });
+      .trigger("mouseover", "bottom", { force: true });
+    cy.log(
+      "Here test should check chnging of color, but cypress cannot hover correctly"
+    );
+    //.then(($ua) => {
+    //expect($ua).to.have.css("color", "rgb(248, 65, 71)"); //This test should pass, because hover over element not working corectly
+    //});
   });
 
   it("TC000012 Verify filter on a category page ", () => {
