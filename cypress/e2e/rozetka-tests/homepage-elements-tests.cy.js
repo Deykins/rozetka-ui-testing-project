@@ -115,7 +115,7 @@ describe("Verifying elements on the homepage of base URL", () => {
     });
   });
 
-  it.only("TC000011 Verify, that color changing of hovered element Interface language switcher", () => {
+  it("TC000011 Verify, that color changing of hovered element Interface language switcher", () => {
     // homepage.getUaLangSwitcher();
     homepage
       .getUaLangSwitcher()
