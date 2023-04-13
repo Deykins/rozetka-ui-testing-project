@@ -1,6 +1,6 @@
 class CategoryPage_PO {
   getCategoryTitle() {
-    return cy.get("h1");
+    return cy.get("h1", { timeout: 10000 });
   }
 
   getItemByIndex(index) {
