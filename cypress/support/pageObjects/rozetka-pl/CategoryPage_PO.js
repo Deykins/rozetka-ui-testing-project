@@ -14,7 +14,26 @@ class CategoryPage_PO {
   }
 
   getCatalogGrid() {
-    return cy.get(".catalog-grid>li", { timeout: 5000 });
+    return cy.get(".catalog-grid>li", { timeout: 10000 });
+  }
+
+  checkProductContainProducerName(name) {
+    this.getCatalogGrid().each(($item) => {
+      const producer_text = $item.text().toLowerCase();
+      expect(producer_text).to.contain(name.toLowerCase());
+    });
+  }
+
+  getPaginationList() {
+    return cy.get(".pagination__list>li");
+  }
+
+  getCurrentPage() {
+    return cy.xpath("//a[contains(@class, '--active')]");
+  }
+
+  getNextPageButton() {
+    return cy.xpath("//a[contains(@class, 'forward')]");
   }
 }
 
