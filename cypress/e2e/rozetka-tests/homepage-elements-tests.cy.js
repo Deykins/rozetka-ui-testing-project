@@ -162,15 +162,15 @@ describe("Verifying elements on the homepage of base URL", () => {
     cy.wait(1000);
     let firstPrice;
     categoryPage
-      .getProductPriceList({timeout:10000})
-      .first()
+      .getProductPriceList()
+      .first({timeout:10000})
       .then((first) => {
         firstPrice = convertToDigit(first.text());
       })
       .then(() => {
         categoryPage
           .getProductPriceList()
-          .last()
+          .last({timeout:10000})
           .then((last) => {
             const lastPrice = convertToDigit(last.text());
             expect(firstPrice).lessThan(lastPrice);
