@@ -152,6 +152,31 @@ describe("Verifying elements on the homepage of base URL", () => {
     homepage.switchInterfaceLanguage();
     checkLang();
   });
+
+  it("#31 Verify price sorting", () => {
+    function convertToDigit(price) {
+      return Number(price.replace("zł", "").replace(",", ".")); //convert string to a number
+    }
+    homepage.getCategoryList().first().click({ force: true });
+    categoryPage.getSortingOptions().select("1: cheap");
+    cy.wait(500);
+    let firstPrice;
+    categoryPage
+      .getProductPriceList()
+      .first()
+      .then((first) => {
+        firstPrice = convertToDigit(first.text());
+      })
+      .then(() => {
+        categoryPage
+          .getProductPriceList()
+          .last()
+          .then((last) => {
+            const lastPrice = convertToDigit(last.text());
+            expect(firstPrice).lessThan(lastPrice);
+          });
+      });
+  });
 });
 
 describe("Timing of page loading", () => {

@@ -16,6 +16,14 @@ class CategoryPage_PO {
   getCatalogGrid() {
     return cy.get(".catalog-grid>li", { timeout: 5000 });
   }
+
+  getSortingOptions() {
+    return cy.xpath("//*[contains(@class, 'sorting')]/select")
+  }
+
+  getProductPriceList() {
+    return cy.xpath("//span[contains(@class, 'price-value')]")
+  }
 }
 
 export default CategoryPage_PO;
