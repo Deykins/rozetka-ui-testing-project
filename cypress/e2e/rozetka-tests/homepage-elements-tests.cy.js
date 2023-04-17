@@ -165,6 +165,7 @@ describe("Verifying elements on the homepage of base URL", () => {
       .getProductPriceList()
       .first({timeout:10000})
       .then((first) => {
+        console.log(first.text())
         firstPrice = convertToDigit(first.text());
       })
       .then(() => {
