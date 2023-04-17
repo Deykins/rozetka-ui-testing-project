@@ -159,10 +159,10 @@ describe("Verifying elements on the homepage of base URL", () => {
     }
     homepage.getCategoryList().first().click({ force: true });
     categoryPage.getSortingOptions().select("1: cheap");
-    cy.wait(500);
+    cy.wait(1000);
     let firstPrice;
     categoryPage
-      .getProductPriceList()
+      .getProductPriceList({timeout:10000})
       .first()
       .then((first) => {
         firstPrice = convertToDigit(first.text());
