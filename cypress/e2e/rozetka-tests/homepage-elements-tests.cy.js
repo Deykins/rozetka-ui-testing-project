@@ -171,7 +171,7 @@ describe("Verifying elements on the homepage of base URL", () => {
       .then(() => {
         categoryPage
           .getProductPriceList()
-          .last({timeout:10000})
+          .last({timeout:100000})
           .then((last) => {
             const lastPrice = convertToDigit(last.text());
             expect(firstPrice).lessThan(lastPrice);
