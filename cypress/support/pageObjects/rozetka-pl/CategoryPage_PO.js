@@ -35,6 +35,14 @@ class CategoryPage_PO {
   getNextPageButton() {
     return cy.xpath("//a[contains(@class, 'forward')]");
   }
+
+  getSortingOptions() {
+    return cy.xpath("//*[contains(@class, 'sorting')]/select")
+  }
+
+  getProductPriceList() {
+    return cy.xpath("//span[contains(@class, 'price-value')]")
+  }
 }
 
 export default CategoryPage_PO;
