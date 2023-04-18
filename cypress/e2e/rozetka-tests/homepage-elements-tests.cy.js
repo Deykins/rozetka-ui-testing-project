@@ -152,6 +152,40 @@ describe("Verifying elements on the homepage of base URL", () => {
     homepage.switchInterfaceLanguage();
     checkLang();
   });
+
+  it("Verify price sorting #31 (Extended)", () => {
+    function convertToDigit(price) {
+      return Number(
+        price.replace("zł", "").replace(",", ".").replace(/\s/g, "") //convert string to a number
+      );
+    }
+    homepage.getCategoryList().first().click({ force: true });
+    let option;
+    categoryPage
+      .getSortingOptions()
+      .select("1: cheap")
+      .then(($option) => {
+        option = $option.text();
+      })
+      .then(() => {
+        categoryPage
+          .getSortingOptions()
+          .first()
+          .then(($activeOption) => {
+            expect(option).to.be.equal($activeOption.text());
+            homepage.getPreloader().should("not.have.attr", "hidden"); //check page loading by progress bar
+            homepage.getPreloader().should("have.attr", "hidden");
+          });
+      });
+    let previousPrice = 0;
+    categoryPage.getProductPriceList().each(($price, index, list) => {
+      expect(previousPrice).within(
+        previousPrice,
+        convertToDigit($price.text())
+      );
+      previousPrice = convertToDigit($price.text());
+    });
+  });
 });
 
 describe("Timing of page loading", () => {
