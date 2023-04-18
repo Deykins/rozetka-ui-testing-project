@@ -153,9 +153,11 @@ describe("Verifying elements on the homepage of base URL", () => {
     checkLang();
   });
 
-  it("#31 Verify price sorting", () => {
+  it("#31 Verify price  sorting", () => {
     function convertToDigit(price) {
-      return Number(price.replace("zł", "").replace(",", ".").replace(/\s/g,'')); //convert string to a number
+      return Number(
+        price.replace("zł", "").replace(",", ".").replace(/\s/g, "")
+      ); //convert string to a number
     }
     homepage.getCategoryList().first().click({ force: true });
     categoryPage.getSortingOptions().select("1: cheap");
@@ -165,7 +167,7 @@ describe("Verifying elements on the homepage of base URL", () => {
       .getProductPriceList()
       .first()
       .then((first) => {
-        cy.log(first.text())
+        cy.log(first.text());
         firstPrice = convertToDigit(first.text());
       })
       .then(() => {
