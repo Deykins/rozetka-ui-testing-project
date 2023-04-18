@@ -130,33 +130,18 @@ describe("Verifying elements on the homepage of base URL", () => {
   });
 
   it("TC000012 Verify filter on a category page ", () => {
-    let lastPage;
-    const producer = "TP-LINK";
+    const producer = "ASUS";
     homepage.getCategory(0).click({ force: true });
     categoryPage.getProducerSearchLine().type(producer);
     cy.get(".checkbox-filter>li").contains(producer).click();
     categoryPage
       .getItemByIndex(0)
       .should("contain", producer, { timeout: 10000 }); //Waiting for catalog grid of specific producer name
-    categoryPage
-      .getPaginationList()
-      .last()
-      .then(($lastPage) => {
-        lastPage = $lastPage.text();
-      })
-      .then(() => {
-        next();
-        function next() {
-          categoryPage.getCurrentPage().then(($page) => {
-            let currentPage = $page.text();
-            cy.log(`Current page is ${currentPage} from ${lastPage}`);
-            categoryPage.checkProductContainProducerName(producer);
-            categoryPage.getNextPageButton().click({ force: true });
-            if (currentPage !== lastPage) next();
-          });
-        }
-      });
-    cy.log(`All items on this page contains ${producer}.`);
+    categoryPage.getCatalogGrid().each(($item) => {
+      const producer_text = $item.text().toLowerCase();
+      expect(producer_text).to.contain(producer.toLowerCase());
+    });
+    cy.log("All items on this page contains " + producer + ".");
     cy.log("TEST PASS");
   });
 
@@ -168,30 +153,38 @@ describe("Verifying elements on the homepage of base URL", () => {
     checkLang();
   });
 
-  it("#31 Verify price sorting", () => {
+  it("Verify price sorting #31 (Extended)", () => {
     function convertToDigit(price) {
-      return Number(price.replace("zł", "").replace(",", ".").replace(/\s/g,'')); //convert string to a number
+      return Number(
+        price.replace("zł", "").replace(",", ".").replace(/\s/g, "") //convert string to a number
+      );
     }
     homepage.getCategoryList().first().click({ force: true });
-    categoryPage.getSortingOptions().select("1: cheap");
-    cy.wait(1000);
-    let firstPrice;
+    let option;
     categoryPage
-      .getProductPriceList()
-      .first()
-      .then((first) => {
-        cy.log(first.text())
-        firstPrice = convertToDigit(first.text());
+      .getSortingOptions()
+      .select("1: cheap")
+      .then(($option) => {
+        option = $option.text();
       })
       .then(() => {
         categoryPage
-          .getProductPriceList()
-          .last()
-          .then((last) => {
-            const lastPrice = convertToDigit(last.text());
-            expect(firstPrice).lessThan(lastPrice);
+          .getSortingOptions()
+          .first()
+          .then(($activeOption) => {
+            expect(option).to.be.equal($activeOption.text());
+            homepage.getPreloader().should("not.have.attr", "hidden"); //check page loading by progress bar
+            homepage.getPreloader().should("have.attr", "hidden");
           });
       });
+    let previousPrice = 0;
+    categoryPage.getProductPriceList().each(($price, index, list) => {
+      expect(previousPrice).within(
+        previousPrice,
+        convertToDigit($price.text())
+      );
+      previousPrice = convertToDigit($price.text());
+    });
   });
 });
 

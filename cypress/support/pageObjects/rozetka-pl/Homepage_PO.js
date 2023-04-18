@@ -57,6 +57,10 @@ class HomePage_PO {
         cy.log("Language switched to" + $lang.text());
       });
   }
+
+  getPreloader() {
+    return cy.get(".preloader");
+  }
 }
 
 export default HomePage_PO;

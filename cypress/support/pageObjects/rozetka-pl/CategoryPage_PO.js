@@ -43,6 +43,14 @@ class CategoryPage_PO {
   getProductPriceList() {
     return cy.xpath("//span[contains(@class, 'price-value')]")
   }
+
+  getSortingOptions() {
+    return cy.xpath("//*[contains(@class, 'sorting')]/select");
+  }
+
+  getProductPriceList() {
+    return cy.xpath("//span[contains(@class, 'price-value')]");
+  }
 }
 
 export default CategoryPage_PO;
