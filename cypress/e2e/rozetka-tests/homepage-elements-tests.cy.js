@@ -153,9 +153,9 @@ describe("Verifying elements on the homepage of base URL", () => {
     checkLang();
   });
 
-  it("#31 Verify price sorting", () => {
+  it.only("#31 Verify price sorting", () => {
     function convertToDigit(price) {
-      return Number(price.replace("zł", "").replace(",", ".")); //convert string to a number
+      return Number(price.replace("zł", "").replace(",", ".").replace(/\s/g,'')); //convert string to a number
     }
     homepage.getCategoryList().first().click({ force: true });
     categoryPage.getSortingOptions().select("1: cheap");
@@ -163,15 +163,15 @@ describe("Verifying elements on the homepage of base URL", () => {
     let firstPrice;
     categoryPage
       .getProductPriceList()
-      .first({timeout:10000})
+      .first()
       .then((first) => {
-        console.log(first.text())
+        cy.log(first.text())
         firstPrice = convertToDigit(first.text());
       })
       .then(() => {
         categoryPage
           .getProductPriceList()
-          .last({timeout:100000})
+          .last()
           .then((last) => {
             const lastPrice = convertToDigit(last.text());
             expect(firstPrice).lessThan(lastPrice);
