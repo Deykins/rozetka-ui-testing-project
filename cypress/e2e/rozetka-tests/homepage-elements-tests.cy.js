@@ -158,10 +158,10 @@ describe("Verifying elements on the homepage of base URL", () => {
       return Number(
         price.replace("zł", "").replace(",", ".").replace(/\s/g, "")
       ); //convert string to a number
-     }
+    }
     homepage.getCategoryList().first().click({ force: true });
     categoryPage.getSortingOptions().select("1: cheap");
-    cy.wait(1000);
+    cy.wait(5000);
     let firstPrice;
     categoryPage
       .getProductPriceList()
@@ -180,7 +180,6 @@ describe("Verifying elements on the homepage of base URL", () => {
           });
       });
   });
-});
 
   it("Verify price sorting #31 (Extended)", () => {
     function convertToDigit(price) {
