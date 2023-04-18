@@ -153,7 +153,7 @@ describe("Verifying elements on the homepage of base URL", () => {
     checkLang();
   });
 
-  it.only("#31 Verify price sorting", () => {
+  it("#31 Verify price sorting", () => {
     function convertToDigit(price) {
       return Number(price.replace("zł", "").replace(",", ".").replace(/\s/g,'')); //convert string to a number
     }
