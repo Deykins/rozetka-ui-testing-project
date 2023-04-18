@@ -130,18 +130,33 @@ describe("Verifying elements on the homepage of base URL", () => {
   });
 
   it("TC000012 Verify filter on a category page ", () => {
-    const producer = "ASUS";
+    let lastPage;
+    const producer = "TP-LINK";
     homepage.getCategory(0).click({ force: true });
     categoryPage.getProducerSearchLine().type(producer);
     cy.get(".checkbox-filter>li").contains(producer).click();
     categoryPage
       .getItemByIndex(0)
       .should("contain", producer, { timeout: 10000 }); //Waiting for catalog grid of specific producer name
-    categoryPage.getCatalogGrid().each(($item) => {
-      const producer_text = $item.text().toLowerCase();
-      expect(producer_text).to.contain(producer.toLowerCase());
-    });
-    cy.log("All items on this page contains " + producer + ".");
+    categoryPage
+      .getPaginationList()
+      .last()
+      .then(($lastPage) => {
+        lastPage = $lastPage.text();
+      })
+      .then(() => {
+        next();
+        function next() {
+          categoryPage.getCurrentPage().then(($page) => {
+            let currentPage = $page.text();
+            cy.log(`Current page is ${currentPage} from ${lastPage}`);
+            categoryPage.checkProductContainProducerName(producer);
+            categoryPage.getNextPageButton().click({ force: true });
+            if (currentPage !== lastPage) next();
+          });
+        }
+      });
+    cy.log(`All items on this page contains ${producer}.`);
     cy.log("TEST PASS");
   });
 
